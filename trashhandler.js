@@ -736,10 +736,10 @@ contextInfo: {
 
 
  if (antidel === "TRUE") {
-        if (mek.message?.protocolMessage?.key) {
-          await handleMessageRevocation(trashcore, mek);
+        if (m.message?.protocolMessage?.key) {
+          await handleMessageRevocation(trashcore, m);
         } else {
-          handleIncomingMessage(mek);
+          handleIncomingMessage(m);
         }
 	  }                   
                         
@@ -1354,6 +1354,45 @@ await trashcore.groupSettingUpdate(m.chat, 'not_announcement')
 reply("Success opened group chat,all members can send messages in group now")
 }
 break
+//==================================================//		
+		case "playdoc": {
+ const yts = require("yt-search");
+
+    try {
+        if (!text) return m.reply("What song do you want to download?");
+
+        const { videos } = await yts(text);
+        if (!videos || videos.length === 0) {
+            return m.reply("No songs found!");
+        }
+
+        const urlYt = videos[0].url;
+
+        try {
+            let data = await fetchJson(`https://ochinpo-helper.hf.space/yt?query=${encodeURIComponent(urlYt)}`);
+
+
+            const { title, format, url: audioUrl } = data.result;
+
+            await trashcore.sendMessage(
+                m.chat,
+                {
+                    document: { url: audioUrl },
+                    mimetype: "audio/mpeg",
+		    
+                    fileName: `${title}.mp3`,
+                },
+                { quoted: m }
+            );
+        } catch (error) {
+            console.error("API request failed:", error.message);
+            reply("Download failed: Unable to retrieve audio.");
+        }
+    } catch (error) {
+        m.reply("Download failed\n" + error.message);
+    }
+};
+        break;
 //==================================================//
 case 'song': {
   if (!text) return reply('provide a song title lagu!\nExample: *play ransoms*');

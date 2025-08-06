@@ -100,4 +100,4 @@ npm start
 > RELEASE ON: 20th July 2025
 >
 > 
-> LAST UPDATED: 30th July 2025
+> LAST UPDATED: 5th August 2025

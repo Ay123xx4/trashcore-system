@@ -40,11 +40,6 @@
       "value": "Trashcore pack",
       "required": false
     },
-      "API_KEY": {
-      "description": "insert your heroku api key here ",
-      "value": "",
-      "required": true
-    },
     "AUTHOR": {
       "description": "type your author sticker name here",
       "value": "Trashcore",
